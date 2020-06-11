@@ -27,7 +27,7 @@ class VisionapiApplicationTests {
 	@Test
 	void contextLoads() {
 		
-		String filePath = "C:/testimg.jpg";
+		String filePath = "C:/testimg.png";
 		String credentialPath = "C:/credentials/nx-ocr-test-356d16dcc6c4.json";
 		
 		try {
@@ -51,6 +51,8 @@ class VisionapiApplicationTests {
 			try (ImageAnnotatorClient client = ImageAnnotatorClient.create(imageAnnotatorSettings)) {
 				BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
 				List<AnnotateImageResponse> responses = response.getResponsesList();
+				
+				String alltext = "";
 
 				for (AnnotateImageResponse res : responses) {
 					if (res.hasError()) {
@@ -60,10 +62,13 @@ class VisionapiApplicationTests {
 
 					// For full list of available annotations, see http://g.co/cloud/vision/docs
 					for (EntityAnnotation annotation : res.getTextAnnotationsList()) {
+						alltext += annotation.getDescription();
 						System.out.printf("Text: %s\n", annotation.getDescription());
 						System.out.printf("Position : %s\n", annotation.getBoundingPoly());
 					}
 				}
+				
+				System.out.printf("%s\n", alltext);
 			}
 		}
 		catch(Exception e) {
