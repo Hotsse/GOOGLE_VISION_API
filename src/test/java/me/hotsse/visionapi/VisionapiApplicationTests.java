@@ -27,7 +27,7 @@ class VisionapiApplicationTests {
 	@Test
 	void contextLoads() {
 		
-		String filePath = "C:/testimg11.jpg";
+		String filePath = "C:/testimg.jpg";
 		String credentialPath = "C:/credentials/nx-ocr-test-356d16dcc6c4.json";
 		
 		try {
